@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B Mart — Category</title>
+  <meta name="description" content="Browse B Mart bikes by category.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="weeb.html" aria-label="B Mart home">
+        <div class="brand-badge">BM</div>
+        <div>
+          <div>B Mart</div>
+          <div style="font-size:12px;color:var(--text-dim);font-weight:600;">Ride the Future</div>
+        </div>
+      </a>
+      <label class="search" aria-label="Search bikes">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#8ea2c8" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="#8ea2c8" stroke-width="2"/></svg>
+        <input id="searchInput" type="search" placeholder="Search bikes..." autocomplete="off" />
+      </label>
+      <div class="header-actions">
+        <a class="btn" href="weeb.html">Home</a>
+        <a class="btn" href="weeb.html#products">All Products</a>
+        <button id="cartBtn" class="btn primary" aria-haspopup="dialog" aria-controls="cartDrawer">Cart <span id="cartCount" class="cart-indicator">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="cat-nav" aria-label="Categories">
+    <div class="cat-list">
+      <a class="cat-link" href="category.html?cat=Road">Road</a>
+      <a class="cat-link" href="category.html?cat=Mountain">Mountain</a>
+      <a class="cat-link" href="category.html?cat=Hybrid">Hybrid</a>
+      <a class="cat-link" href="category.html?cat=Electric">Electric</a>
+      <a class="cat-link" href="track.html" style="margin-left:auto;">Track Orders</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <aside class="filters" aria-label="Filters">
+      <h3>Filters</h3>
+      <div class="filter-block">
+        <div class="meta" style="margin-bottom:6px;">Brand</div>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="Volt" />Volt</label>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="TrailX" />TrailX</label>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="UrbanGo" />UrbanGo</label>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="AeroFly" />AeroFly</label>
+      </div>
+      <div class="filter-block">
+        <div class="meta" style="margin-bottom:6px;">Category</div>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Road" />Road</label>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Mountain" />Mountain</label>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Hybrid" />Hybrid</label>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Electric" />Electric</label>
+      </div>
+      <div class="filter-block">
+        <div class="meta" style="margin-bottom:6px;">Price</div>
+        <div class="price-range">
+          <input id="minPrice" type="number" placeholder="Min" min="0" />
+          <input id="maxPrice" type="number" placeholder="Max" min="0" />
+        </div>
+        <div style="margin-top:10px; display:flex; gap:8px;">
+          <button id="applyFilters" class="btn" style="width:100%;">Apply</button>
+          <button id="clearFilters" class="btn" style="width:100%;">Clear</button>
+        </div>
+      </div>
+    </aside>
+    <section class="products-card" aria-live="polite" id="products">
+      <div class="products-header">
+        <div class="meta" id="resultCount">Showing 0 bikes</div>
+        <button id="toggleFilters" class="btn" aria-expanded="false" aria-controls="filters">Filters</button>
+        <select id="sortSelect" class="sort" aria-label="Sort products">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating-desc">Rating: High to Low</option>
+        </select>
+      </div>
+      <div id="grid" class="grid" aria-label="Products grid"></div>
+    </section>
+  </main>
+
+  <div id="drawerBackdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="cartDrawer" class="drawer" role="dialog" aria-label="Your Cart">
+    <div class="drawer-header" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+      <div style="font-weight:800;">Your Cart</div>
+      <button id="closeCart" class="btn">Close</button>
+    </div>
+    <div id="cartList" class="cart-list"></div>
+    <div class="drawer-footer">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <div class="meta">Subtotal</div>
+        <div id="subtotal" class="price">₹0.00</div>
+      </div>
+      <button id="checkoutBtn" class="btn primary" style="width:100%;">Checkout</button>
+    </div>
+  </aside>
+
+  <footer class="footer">
+    <div>&copy; <span id="year"></span> B Mart. All rights reserved.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Preselect category on load using helper from app.js
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const cat = params.get('cat');
+      if (window.applyCategoryFilter) window.applyCategoryFilter(cat);
+    })();
+  </script>
+</body>
+</html>
+

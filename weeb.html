@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B Mart — Buy Bikes Online</title>
+  <meta name="description" content="B Mart: Shop bikes online with fast delivery. Road, MTB, Hybrid, and Electric bikes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand" aria-label="B Mart home">
+        <div class="brand-badge">BM</div>
+        <div>
+          <div>B Mart</div>
+          <div style="font-size:12px;color:var(--text-dim);font-weight:600;">Ride the Future</div>
+        </div>
+      </div>
+      <label class="search" aria-label="Search bikes">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#8ea2c8" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="#8ea2c8" stroke-width="2"/></svg>
+        <input id="searchInput" type="search" placeholder="Search bikes, brands, categories... (e.g. mountain)" autocomplete="off" />
+      </label>
+      <div class="header-actions">
+        <a class="btn" href="weeb.html">Home</a>
+        <button id="cartBtn" class="btn primary" aria-haspopup="dialog" aria-controls="cartDrawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z" stroke="#e9efff" stroke-width="1.5"/><circle cx="9" cy="21" r="1.5" fill="#e9efff"/><circle cx="18" cy="21" r="1.5" fill="#e9efff"/></svg>
+          Cart <span id="cartCount" class="cart-indicator">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="cat-nav" aria-label="Categories">
+    <div class="cat-list">
+      <a class="cat-link" href="category.html?cat=Road">Road</a>
+      <a class="cat-link" href="category.html?cat=Mountain">Mountain</a>
+      <a class="cat-link" href="category.html?cat=Hybrid">Hybrid</a>
+      <a class="cat-link" href="category.html?cat=Electric">Electric</a>
+      <a class="cat-link" href="track.html" style="margin-left:auto;">Track Orders</a>
+    </div>
+  </nav>
+
+  <section class="hero" aria-label="Hero">
+    <div class="hero-card">
+      <div class="hero-left">
+        <div class="hero-title">Premium bikes, delivered fast.</div>
+        <div class="hero-sub">Explore road, mountain, hybrid and electric bikes. 3D preview included.</div>
+        <div class="hero-actions">
+          <a href="#products" class="btn primary">Shop now</a>
+          <a href="#products" class="btn">Browse all</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <spline-viewer url="https://prod.spline.design/FIERYpu7PUnExAG9/scene.splinecode"></spline-viewer>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <aside class="filters" aria-label="Filters">
+      <h3>Filters</h3>
+      <div class="filter-block">
+        <div class="meta" style="margin-bottom:6px;">Brand</div>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="Volt" />Volt</label>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="TrailX" />TrailX</label>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="UrbanGo" />UrbanGo</label>
+        <label class="chip"><input type="checkbox" class="brand-filter" value="AeroFly" />AeroFly</label>
+      </div>
+      <div class="filter-block">
+        <div class="meta" style="margin-bottom:6px;">Category</div>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Road" />Road</label>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Mountain" />Mountain</label>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Hybrid" />Hybrid</label>
+        <label class="chip"><input type="checkbox" class="cat-filter" value="Electric" />Electric</label>
+      </div>
+      <div class="filter-block">
+        <div class="meta" style="margin-bottom:6px;">Price</div>
+        <div class="price-range">
+          <input id="minPrice" type="number" placeholder="Min" min="0" />
+          <input id="maxPrice" type="number" placeholder="Max" min="0" />
+        </div>
+        <div style="margin-top:10px; display:flex; gap:8px;">
+          <button id="applyFilters" class="btn" style="width:100%;">Apply</button>
+          <button id="clearFilters" class="btn" style="width:100%;">Clear</button>
+        </div>
+      </div>
+    </aside>
+    <section class="products-card" aria-live="polite" id="products">
+      <div class="products-header">
+        <div class="meta" id="resultCount">Showing 0 bikes</div>
+        <button id="toggleFilters" class="btn" aria-expanded="false" aria-controls="filters">Filters</button>
+        <select id="sortSelect" class="sort" aria-label="Sort products">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating-desc">Rating: High to Low</option>
+        </select>
+      </div>
+      <div id="grid" class="grid" aria-label="Products grid"></div>
+    </section>
+  </main>
+
+  <div id="drawerBackdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="cartDrawer" class="drawer" role="dialog" aria-label="Your Cart">
+    <div class="drawer-header" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+      <div style="font-weight:800;">Your Cart</div>
+      <button id="closeCart" class="btn">Close</button>
+    </div>
+    <div id="cartList" class="cart-list"></div>
+    <div class="drawer-footer">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <div class="meta">Subtotal</div>
+        <div id="subtotal" class="price">₹0.00</div>
+      </div>
+      <button id="checkoutBtn" class="btn primary" style="width:100%;">Checkout</button>
+    </div>
+  </aside>
+
+  <template id="checkoutTemplate">
+    <div id="checkoutModal" style="position:fixed; inset:0; display:grid; place-items:center; background:rgba(0,0,0,.55); z-index:20;">
+      <div style="width:560px; max-width:94vw; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden;">
+        <div style="padding:14px; border-bottom:1px solid var(--border); font-weight:800;">Checkout</div>
+        <form id="checkoutForm" style="display:grid; gap:10px; padding:14px;">
+          <div style="display:grid; gap:8px; grid-template-columns: 1fr 1fr;">
+            <label style="display:grid; gap:6px;">
+              <span class="meta">First name</span>
+              <input name="firstName" required placeholder="John" style="background:var(--card); color:var(--text); border:1px solid var(--border); padding:10px; border-radius:10px;" />
+            </label>
+            <label style="display:grid; gap:6px;">
+              <span class="meta">Last name</span>
+              <input name="lastName" required placeholder="Doe" style="background:var(--card); color:var(--text); border:1px solid var(--border); padding:10px; border-radius:10px;" />
+            </label>
+          </div>
+          <label style="display:grid; gap:6px;">
+            <span class="meta">Email</span>
+            <input name="email" type="email" required placeholder="john@example.com" style="background:var(--card); color:var(--text); border:1px solid var(--border); padding:10px; border-radius:10px;" />
+          </label>
+          <label style="display:grid; gap:6px;">
+            <span class="meta">Address</span>
+            <input name="address" required placeholder="123 Main St" style="background:var(--card); color:var(--text); border:1px solid var(--border); padding:10px; border-radius:10px;" />
+          </label>
+          <div style="display:grid; gap:8px; grid-template-columns: 2fr 1fr;">
+            <label style="display:grid; gap:6px;">
+              <span class="meta">City</span>
+              <input name="city" required placeholder="Your City" style="background:var(--card); color:var(--text); border:1px solid var(--border); padding:10px; border-radius:10px;" />
+            </label>
+            <label style="display:grid; gap:6px;">
+              <span class="meta">Zip</span>
+              <input name="zip" required placeholder="12345" style="background:var(--card); color:var(--text); border:1px solid var(--border); padding:10px; border-radius:10px;" />
+            </label>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:6px;">
+            <button type="button" id="cancelCheckout" class="btn" style="width:100%;">Cancel</button>
+            <button type="submit" class="btn primary" style="width:100%;">Place order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <template id="orderTemplate">
+    <div id="orderModal" style="position:fixed; inset:0; display:grid; place-items:center; background:rgba(0,0,0,.55); z-index:20;">
+      <div style="width:520px; max-width:94vw; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden;">
+        <div style="padding:14px; border-bottom:1px solid var(--border); font-weight:800;">Order Confirmed</div>
+        <div style="padding:14px; display:grid; gap:10px;">
+          <div>Thanks! Your order <span id="orderId" style="font-weight:800;">#</span> is confirmed.</div>
+          <div class="meta">A confirmation has been sent to your email.</div>
+          <button id="closeOrder" class="btn primary" style="justify-self:end;">Close</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <footer class="footer">
+    <div>&copy; <span id="year"></span> B Mart. All rights reserved.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.71/build/spline-viewer.js"></script>
+</body>
+</html>
+
+

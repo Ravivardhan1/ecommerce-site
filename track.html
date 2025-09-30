@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B Mart — Track Orders</title>
+  <meta name="description" content="Track your B Mart orders.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="weeb.html" aria-label="B Mart home">
+        <div class="brand-badge">BM</div>
+        <div>
+          <div>B Mart</div>
+          <div style="font-size:12px;color:var(--text-dim);font-weight:600;">Ride the Future</div>
+        </div>
+      </a>
+      <div></div>
+      <div class="header-actions">
+        <a class="btn" href="weeb.html">Home</a>
+        <a class="btn" href="weeb.html#products">Shop</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="grid-template-columns:1fr;">
+    <section class="products-card">
+      <div class="products-header">
+        <div style="font-weight:800;">Track your order</div>
+      </div>
+      <form id="trackForm" style="display:grid; gap:10px;">
+        <label style="display:grid; gap:6px;">
+          <span class="meta">Order ID</span>
+          <input id="orderInput" placeholder="e.g., BMABC123" style="background:var(--card); color:var(--text); border:1px solid var(--border); padding:10px; border-radius:10px;" />
+        </label>
+        <button class="btn primary" type="submit" style="justify-self:start;">Track</button>
+      </form>
+      <div id="trackResult" style="margin-top:12px;"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; <span id="year"></span> B Mart. All rights reserved.</div>
+  </footer>
+
+  <script src="track.js"></script>
+</body>
+</html>
+
